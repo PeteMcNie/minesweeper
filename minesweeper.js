@@ -1,6 +1,33 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
+// function board (num1, num2) {
+//   let cells = [];
+//   for(let i = 0; i < 9; i++) {
+//     cells[i] = {          
+//       row: num1,
+//       col: num2,
+//       isMine: true,
+//       isMarked: false,
+//       hidden: true
+//       };
+
+
+//   }
+//     return cells;
+// };
+
+// console.log(board(0, 0))
+// console.log(board(0, 1))
+// console.log(board(0, 2))
+// console.log(board(1, 0))
+// console.log(board(1, 1))
+// console.log(board(1, 2))
+// console.log(board(2, 0))
+// console.log(board(2, 1))
+// console.log(board(2, 2))
+
+
 var board = {
   cells: [
           {
@@ -89,12 +116,12 @@ function checkForWin () {
   for(let i = 0; i < board.cells.length; i++) {
 
     if (board.cells[i].isMine === true && board.cells[i].isMarked === true) {
-    //    console.log('Hello')
-    //   console.log(board.cells[i])
+       console.log('Hello')
+       console.log(board.cells[i])
     } else if (board.cells[i].hidden === true) {
-    //    console.log('Step 2222')
-    //   console.log(board.cells[i])
-        return
+       console.log('Step 2222')
+       console.log(board.cells[i])
+       return
     } else {
     //    console.log('DONE!')
     //    console.log(board.cells[i])
