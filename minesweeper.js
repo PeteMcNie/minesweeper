@@ -1,31 +1,34 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
-// Define your `board` object here!
-// function board (num1, num2) {
-//   let cells = [];
-//   for(let i = 0; i < 9; i++) {
-//     cells[i] = {          
-//       row: num1,
-//       col: num2,
+//Define your `board` object here!
+// function board (row, col) {
+// let cells = [];
+
+// let cell = 
+//       {          
+//       row,
+//       col,
 //       isMine: true,
 //       isMarked: false,
 //       hidden: true
 //       };
+// cells.push(cell)
+// console.log(cells)
 
 
-//   }
-//     return cells;
+// //return cells;
 // };
 
 // console.log(board(0, 0))
-// console.log(board(0, 1))
-// console.log(board(0, 2))
-// console.log(board(1, 0))
-// console.log(board(1, 1))
-// console.log(board(1, 2))
-// console.log(board(2, 0))
-// console.log(board(2, 1))
-// console.log(board(2, 2))
+// console.log(board())
+// console.log(board())
+// console.log(board())
+// console.log(board())
+// console.log(board())
+// console.log(board())
+// console.log(board())
+// console.log(board())
+
 
 
 var board = {
@@ -45,13 +48,19 @@ var board = {
           {
           row: 0,
           col: 2,
-          isMine: true,
+          isMine: false,
+          hidden: true
+          },
+          {
+          row: 0,
+          col: 3,
+          isMine: false,
           hidden: true
           },
           {
           row: 1,
           col: 0,
-          isMine: true,
+          isMine: false,
           hidden: true
           },
           {
@@ -67,21 +76,57 @@ var board = {
           hidden: true
           },
           {
-          row: 2,
-          col: 0,
+          row: 1,
+          col: 3,
           isMine: true,
           hidden: true
           },
           {
           row: 2,
+          col: 0,
+          isMine: false,
+          hidden: true
+          },
+          {
+          row: 2,
           col: 1,
-          isMine: true,
+          isMine: false,
           hidden: true
           },
           {
           row: 2,
           col: 2,
           isMine: false,
+          hidden: true
+          },
+          {
+          row: 2,
+          col: 3,
+          isMine: false,
+          hidden: true
+          },
+          {
+          row: 3,
+          col: 0,
+          isMine: true,
+          hidden: true
+          },
+          {
+          row: 3,
+          col: 1,
+          isMine: true,
+          hidden: true
+          },
+          {
+          row: 3,
+          col: 2,
+          isMine: false,
+          hidden: true
+          },
+          {
+          row: 3,
+          col: 3,
+          isMine: true,
           hidden: true
           }
          ]
@@ -90,8 +135,8 @@ var board = {
 function startGame () {
   // Don't remove this function call: it makes the game work!
   for(let i = 0; i < board.cells.length; i++) {
-    board.cells.surroundingMines = countSurroundingMines(board.cells[i])
-    // console.log(board.cells)
+    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
+    console.log(board.cells)
   }
 
 
