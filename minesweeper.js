@@ -1,155 +1,169 @@
 document.addEventListener('DOMContentLoaded', startGame)
-
-//Define your `board` object here!
-// function board (row, col) {
-// let cells = [];
-
-// let cell = 
-//       {          
-//       row,
-//       col,
-//       isMine: true,
-//       isMarked: false,
-//       hidden: true
-//       };
-// cells.push(cell)
-// console.log(cells)
-
-
-// //return cells;
-// };
-
-// console.log(board(0, 0))
-// console.log(board())
-// console.log(board())
-// console.log(board())
-// console.log(board())
-// console.log(board())
-// console.log(board())
-// console.log(board())
-// console.log(board())
-
-
-
-var board = {
-  cells: [
-          {
-          row: 0,
-          col: 0,
-          isMine: true,
-          hidden: true
-          }, 
-          {
-          row: 0,
-          col: 1,
-          isMine: true,
-          hidden: true
-          }, 
-          {
-          row: 0,
-          col: 2,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 0,
-          col: 3,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 1,
-          col: 0,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 1,
-          col: 1,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 1,
-          col: 2,
-          isMine: true,
-          hidden: true
-          },
-          {
-          row: 1,
-          col: 3,
-          isMine: true,
-          hidden: true
-          },
-          {
-          row: 2,
-          col: 0,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 2,
-          col: 1,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 2,
-          col: 2,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 2,
-          col: 3,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 3,
-          col: 0,
-          isMine: true,
-          hidden: true
-          },
-          {
-          row: 3,
-          col: 1,
-          isMine: true,
-          hidden: true
-          },
-          {
-          row: 3,
-          col: 2,
-          isMine: false,
-          hidden: true
-          },
-          {
-          row: 3,
-          col: 3,
-          isMine: true,
-          hidden: true
-          }
-         ]
+// To create game cells
+function cellMaker (row, col, isMine, isMarked, hidden) {
+  let cell = {
+    row,
+    col,
+    isMine,
+    isMarked,
+    hidden,
+  };
+  return cell;
 };
+
+
+//To palce a random amount of mines
+let mine = 0;
+
+function mineMaker () {
+  let min = 3;
+  let max = 11;
+  let mines = Math.floor(Math.random() * (max - min) + min);
+  
+  mine = mines;
+};
+mineMaker();
+console.log(mine)
+
+
+// To create the game board
+function boardMaker (num) {
+  let board = {};
+  let cells = [];
+
+  for (let row = 0; row < num; row++) { //Creates rows
+    for (let col = 0; col < num; col++) { // Creates columns
+      if (mine > 0) {
+        cells.push(cellMaker(row, col, true, false, true)) //PLACES MINES
+        mine--;
+      } else {
+        cells.push(cellMaker(row, col, false, false, true)) //CELLS WITH NO MINES
+      }
+    }
+  }
+  board.cells = cells;
+  console.log(board.cells)
+  return board;
+}
+
+let board = boardMaker(5);
+
+
+
+
+// var board = {
+//   cells: [
+//           {
+//           row: 0,
+//           col: 0,
+//           isMine: true,
+//           hidden: true
+//           }, 
+//           {
+//           row: 0,
+//           col: 1,
+//           isMine: true,
+//           hidden: true
+//           }, 
+//           {
+//           row: 0,
+//           col: 2,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 0,
+//           col: 3,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 1,
+//           col: 0,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 1,
+//           col: 1,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 1,
+//           col: 2,
+//           isMine: true,
+//           hidden: true
+//           },
+//           {
+//           row: 1,
+//           col: 3,
+//           isMine: true,
+//           hidden: true
+//           },
+//           {
+//           row: 2,
+//           col: 0,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 2,
+//           col: 1,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 2,
+//           col: 2,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 2,
+//           col: 3,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 3,
+//           col: 0,
+//           isMine: true,
+//           hidden: true
+//           },
+//           {
+//           row: 3,
+//           col: 1,
+//           isMine: true,
+//           hidden: true
+//           },
+//           {
+//           row: 3,
+//           col: 2,
+//           isMine: false,
+//           hidden: true
+//           },
+//           {
+//           row: 3,
+//           col: 3,
+//           isMine: true,
+//           hidden: true
+//           }
+//          ]
+// };
 
 function startGame () {
   // Don't remove this function call: it makes the game work!
-  for(let i = 0; i < board.cells.length; i++) {
-    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
-    console.log(board.cells)
+ let gameBoard = board.cells;
+  
+  for(let i = 0; i < gameBoard.length; i++) {
+    gameBoard[i].surroundingMines = countSurroundingMines(gameBoard[i])
   }
-
-
-
-
   document.addEventListener("click", checkForWin)
   document.addEventListener("contextmenu", checkForWin)
 
-
   lib.initBoard()
 }
-
-
 
 
 // Define this function to look for a win condition:
@@ -157,31 +171,21 @@ function startGame () {
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
 function checkForWin () {
+  let gameBoard = board.cells;
 
-  for(let i = 0; i < board.cells.length; i++) {
-
-    if (board.cells[i].isMine === true && board.cells[i].isMarked === true) {
+  for(let i = 0; i < gameBoard.length; i++) {
+    if (gameBoard[i].isMine === true && gameBoard[i].isMarked === true) {
        console.log('Hello')
-       console.log(board.cells[i])
-    } else if (board.cells[i].hidden === true) {
+       console.log(gameBoard[i])
+    } else if (gameBoard[i].hidden === true) {
        console.log('Step 2222')
-       console.log(board.cells[i])
+       console.log(gameBoard[i])
        return
-    } else {
-    //    console.log('DONE!')
-    //    console.log(board.cells[i])
-    }
+    } 
   }
+  winTrack();
   return lib.displayMessage('YOU WIN!')
-  // You can use this function call to declare a winner (once you've
-  // detected that they've won, that is!)
-  //   lib.displayMessage('You win!')
 }
-
-
-
-
-
 
 
 
@@ -199,12 +203,11 @@ function checkForWin () {
 
 function countSurroundingMines (cell) {
   var surrounding = lib.getSurroundingCells(cell.row, cell.col)
-// console.log(surrounding)
+//console.log(surrounding)
   
   let count = 0;
 
   for(let i = 0; i < surrounding.length; i++) {
-  
     // console.log(surrounding[i].isMine)
     if(surrounding[i].isMine === true) {
       count++;
@@ -212,5 +215,29 @@ function countSurroundingMines (cell) {
   }
   // console.log(count)
   return count;
+}
+
+
+//Sound SECTION
+function music () {
+  var mySound = document.getElementById("background-music");
+  mySound.play();
+}
+
+function winTrack() {
+  let win = document.getElementById("win");
+  win.play();
+}
+
+function lossTrack() {
+  let loss = document.getElementById("loss");
+  loss.play();
+}
+
+
+
+// RESET BUTTON HERE
+function resetGame () {
+  location.reload();
 }
 

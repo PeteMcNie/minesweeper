@@ -8,12 +8,15 @@ body {
   align-items: center;
   justify-content: flex-center;
   flex-direction: column;
+  background-color: rgb(135, 182, 253);
 }
 
 #message, #notes {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-transform: uppercase;
+  font-size: 30px;
 }
 
 #message {
@@ -26,13 +29,13 @@ body {
 }
 
 .board div {
-  color: green;
+  color: rgb(255, 255, 255);
   font-size: 2rem;
   width: 75px;
   height: 75px;
   border: 1px #ccc dotted;
   border-radius: 10%;
-  background-color: white;
+  background-color: hsla(347, 68%, 52%, 0.712);
   margin: 3px;
   display: flex;
   align-items: center;
@@ -48,13 +51,27 @@ div.mine, div.mine:hover {
 }
 
 div.hidden {
-  background: #eee;
+  background: rgba(20, 255, 145, 0.6);
 }
 
 div.hidden:hover {
-  background: #ccc;
+  background: gray;
+  border-radius: 50%;
 }
 
 div.marked, div.marked:hover {
-  background: no-repeat center/60% url("images/mark.svg") deepskyblue;
+  background: no-repeat center/60% url("images/mark.svg") rgb(57, 156, 189);
+}
+
+button {
+  background-color: rgb(235, 179, 111);
+  padding: 2.5vh 3vw 2.5vh 3vw;
+  margin: 1vh 0vw 1vh 0vw;
+  font-size: 30px;
+  border-radius: 20%;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: rgb(10, 163, 190);
 }
