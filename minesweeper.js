@@ -12,37 +12,27 @@ function cellMaker (row, col, isMine, isMarked, hidden) {
 };
 
 
-//To palce a random amount of mines
-let mine = 0;
-
-function mineMaker () {
-  let min = 3;
-  let max = 11;
-  let mines = Math.floor(Math.random() * (max - min) + min);
-  
-  mine = mines;
-};
-mineMaker();
-console.log(mine)
-
-
 // To create the game board
 function boardMaker (num) {
   let board = {};
   let cells = [];
+  let min = 0;
+  let max = 6;
 
   for (let row = 0; row < num; row++) { //Creates rows
     for (let col = 0; col < num; col++) { // Creates columns
-      if (mine > 0) {
+
+      let mine = Math.floor(Math.random() * (max - min) + min); //To generate a radnum
+      
+      if (mine > 3) { //if rannum is > 3, place mine
         cells.push(cellMaker(row, col, true, false, true)) //PLACES MINES
         mine--;
-      } else {
+      } else { // otherwise no mine
         cells.push(cellMaker(row, col, false, false, true)) //CELLS WITH NO MINES
       }
     }
   }
   board.cells = cells;
-  console.log(board.cells)
   return board;
 }
 
@@ -51,107 +41,7 @@ let board = boardMaker(5);
 
 
 
-// var board = {
-//   cells: [
-//           {
-//           row: 0,
-//           col: 0,
-//           isMine: true,
-//           hidden: true
-//           }, 
-//           {
-//           row: 0,
-//           col: 1,
-//           isMine: true,
-//           hidden: true
-//           }, 
-//           {
-//           row: 0,
-//           col: 2,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 0,
-//           col: 3,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 1,
-//           col: 0,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 1,
-//           col: 1,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 1,
-//           col: 2,
-//           isMine: true,
-//           hidden: true
-//           },
-//           {
-//           row: 1,
-//           col: 3,
-//           isMine: true,
-//           hidden: true
-//           },
-//           {
-//           row: 2,
-//           col: 0,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 2,
-//           col: 1,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 2,
-//           col: 2,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 2,
-//           col: 3,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 3,
-//           col: 0,
-//           isMine: true,
-//           hidden: true
-//           },
-//           {
-//           row: 3,
-//           col: 1,
-//           isMine: true,
-//           hidden: true
-//           },
-//           {
-//           row: 3,
-//           col: 2,
-//           isMine: false,
-//           hidden: true
-//           },
-//           {
-//           row: 3,
-//           col: 3,
-//           isMine: true,
-//           hidden: true
-//           }
-//          ]
-// };
-
+// To start the game
 function startGame () {
   // Don't remove this function call: it makes the game work!
  let gameBoard = board.cells;
@@ -175,19 +65,17 @@ function checkForWin () {
 
   for(let i = 0; i < gameBoard.length; i++) {
     if (gameBoard[i].isMine === true && gameBoard[i].isMarked === true) {
-       console.log('Hello')
-       console.log(gameBoard[i])
+ //      console.log('Hello')
+ //      console.log(gameBoard[i])
     } else if (gameBoard[i].hidden === true) {
-       console.log('Step 2222')
-       console.log(gameBoard[i])
+   //    console.log('Step 2222')
+   //    console.log(gameBoard[i])
        return
     } 
   }
   winTrack();
   return lib.displayMessage('YOU WIN!')
 }
-
-
 
 
 
