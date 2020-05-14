@@ -72,7 +72,6 @@ function checkForWin () {
       return;
     } 
   }
-  stillPlaying = 100;
   winTrack();
   return lib.displayMessage('YOU WIN!')
 }
@@ -109,12 +108,7 @@ function countSurroundingMines (cell) {
 //Sound SECTION
 function music () {
   var mySound = document.getElementById("background-music");
-  if (stillPlaying > 0) {
-    mySound.play();
-  } else if (stillPlaying === 0) {
-    mySound.onpause();
-  }
-  
+  mySound.play();
 }
 
 function winTrack() {
