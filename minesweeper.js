@@ -55,7 +55,7 @@ function startGame () {
   lib.initBoard()
 }
 
-let stillPlaying = 1;
+
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
@@ -65,10 +65,8 @@ function checkForWin () {
 
   for(let i = 0; i < gameBoard.length; i++) {
     if (board.cells[i].isMine && board.cells[i].isMarked !== true) {
-      stillPlaying++;
       return;
     } else if (board.cells[i].hidden === true && board.cells[i].isMine !== true) {
-      stillPlaying++;
       return;
     } 
   }
