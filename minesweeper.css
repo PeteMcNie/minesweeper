@@ -1,6 +1,6 @@
 html, body {
   height: 100%;
-  font-family: 'Open Sans', sans-serif
+  font-family: 'DM Mono', monospace;
 }
 
 body {
@@ -20,7 +20,7 @@ body {
 }
 
 #message {
-  font-size: 1.5rem;
+  font-size: 2.0rem;
 }
 
 .board {
@@ -66,12 +66,17 @@ div.marked, div.marked:hover {
 button {
   background-color: rgb(235, 179, 111);
   padding: 2.5vh 3vw 2.5vh 3vw;
-  margin: 1vh 0vw 1vh 0vw;
+  margin: 4vh 0vw 2vh 0vw;
   font-size: 30px;
   border-radius: 20%;
   text-transform: uppercase;
+  font-family: 'DM Mono', monospace;
+  outline: none;
+  border: none;
+  box-shadow: rgba(0,0,0, .7) 1px 1px 0;
 }
 
 button:hover {
-  background-color: rgb(10, 163, 190);
+  background-color: rgb(104, 100, 89);
+  color: aliceblue;
 }

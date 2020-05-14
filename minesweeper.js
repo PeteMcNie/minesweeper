@@ -55,7 +55,7 @@ function startGame () {
   lib.initBoard()
 }
 
-
+let stillPlaying = 1;
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
@@ -64,15 +64,15 @@ function checkForWin () {
   let gameBoard = board.cells;
 
   for(let i = 0; i < gameBoard.length; i++) {
-    if (gameBoard[i].isMine === true && gameBoard[i].isMarked === true) {
- //      console.log('Hello')
- //      console.log(gameBoard[i])
-    } else if (gameBoard[i].hidden === true) {
-   //    console.log('Step 2222')
-   //    console.log(gameBoard[i])
-       return
+    if (board.cells[i].isMine && board.cells[i].isMarked !== true) {
+      stillPlaying++;
+      return;
+    } else if (board.cells[i].hidden === true && board.cells[i].isMine !== true) {
+      stillPlaying++;
+      return;
     } 
   }
+  stillPlaying = 100;
   winTrack();
   return lib.displayMessage('YOU WIN!')
 }
@@ -109,7 +109,12 @@ function countSurroundingMines (cell) {
 //Sound SECTION
 function music () {
   var mySound = document.getElementById("background-music");
-  mySound.play();
+  if (stillPlaying > 0) {
+    mySound.play();
+  } else if (stillPlaying === 0) {
+    mySound.onpause();
+  }
+  
 }
 
 function winTrack() {
