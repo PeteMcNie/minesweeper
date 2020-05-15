@@ -104,15 +104,6 @@ function countSurroundingMines (cell) {
 
 
 //Sound SECTION
-// function music () {
-//   var mySound = document.getElementById("background-music");
-//   if (lossTrack) {
-//     mySound.pause();
-//   } 
-//   mySound.play();
-  
-// }
-
 function winTrack() {
   let win = document.getElementById("win");
   win.play();

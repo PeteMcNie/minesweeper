@@ -8,19 +8,22 @@ body {
   align-items: center;
   justify-content: flex-center;
   flex-direction: column;
-  background-color: rgb(135, 182, 253);
+  background-color:  brown;
 }
 
 #message, #notes {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-transform: uppercase;
   font-size: 30px;
 }
 
 #message {
-  font-size: 2.0rem;
+  color: azure;
+  font-size: 2.5rem;
+  text-align: center;
+  padding-top: 3vh;
+  padding-bottom: 1vh;
 }
 
 .board {
@@ -51,7 +54,7 @@ div.mine, div.mine:hover {
 }
 
 div.hidden {
-  background: rgba(20, 255, 145, 0.6);
+  background: teal;
 }
 
 div.hidden:hover {
@@ -64,16 +67,17 @@ div.marked, div.marked:hover {
 }
 
 button {
-  background-color: rgb(235, 179, 111);
+  color: white;
   padding: 2.5vh 3vw 2.5vh 3vw;
   margin: 4vh 0vw 2vh 0vw;
   font-size: 30px;
-  border-radius: 20%;
+  background-color: teal;
   text-transform: uppercase;
-  font-family: 'DM Mono', monospace;
+  cursor: pointer;
   outline: none;
   border: none;
-  box-shadow: rgba(0,0,0, .7) 1px 1px 0;
+  box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0px 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 15%;
 }
 
 button:hover {
