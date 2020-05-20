@@ -19,42 +19,41 @@ function boardMaker (num) {
   let min = 0;
   let max = 6;
 
-  for (let row = 0; row < num; row++) { //Creates rows
-    for (let col = 0; col < num; col++) { // Creates columns
-
-      let mine = Math.floor(Math.random() * (max - min) + min); //To generate a radnum
-      
-      if (mine > 3) { //if rannum is > 3, place mine
-        cells.push(cellMaker(row, col, true, false, true)) //PLACES MINES
-        mine--;
-      } else { // otherwise no mine
-        cells.push(cellMaker(row, col, false, false, true)) //CELLS WITH NO MINES
+    for (let row = 0; row < num; row++) { //Creates rows
+      for (let col = 0; col < num; col++) { // Creates columns
+  
+        let mine = Math.floor(Math.random() * (max - min) + min); //To generate a radnum
+        
+        if (mine > 3) { //if rannum is > 3, place mine
+          cells.push(cellMaker(row, col, true, false, true)) //PLACES MINES
+          mine--;
+        } else { // otherwise no mine
+          cells.push(cellMaker(row, col, false, false, true)) //CELLS WITH NO MINES
+        }
       }
     }
-  }
-  board.cells = cells;
-  return board;
+    board.cells = cells;
+    return board;
 }
 
 let board = boardMaker(5);
 
 
-
-
 // To start the game
 function startGame () {
-  // Don't remove this function call: it makes the game work!
- let gameBoard = board.cells;
+  // Don't remove this function call: it makes the game work!  
+
+    let gameBoard = board.cells;
   
-  for(let i = 0; i < gameBoard.length; i++) {
-    gameBoard[i].surroundingMines = countSurroundingMines(gameBoard[i])
-  }
-  document.addEventListener("click", checkForWin)
-  document.addEventListener("contextmenu", checkForWin)
-
-  lib.initBoard()
+    for(let i = 0; i < gameBoard.length; i++) {
+      gameBoard[i].surroundingMines = countSurroundingMines(gameBoard[i])
+    }
+    document.addEventListener("click", checkForWin)
+    document.addEventListener("contextmenu", checkForWin)
+  
+    lib.initBoard()
+  
 }
-
 
 // Define this function to look for a win condition:
 //
@@ -71,10 +70,8 @@ function checkForWin () {
     } 
   }
   winTrack();
-  return lib.displayMessage('YOU WIN!')
+  return lib.displayMessage('YOU WIN!') 
 }
-
-
 
 
 // Define this function to count the number of mines around the cell
@@ -103,6 +100,14 @@ function countSurroundingMines (cell) {
 }
 
 
+
+
+
+
+
+
+
+
 //Sound SECTION
 function winTrack() {
   let win = document.getElementById("win");
@@ -116,8 +121,15 @@ function lossTrack() {
 
 
 
+
 // RESET BUTTON HERE
 function resetGame () {
-  location.reload();
+  win.pause();
+  loss.pause();
+  removeListeners();
+  let resetGame = document.getElementById('board');
+  resetGame.innerHTML = "";
+  board = boardMaker(5)
+  startGame();
 }
 
