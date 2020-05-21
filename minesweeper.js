@@ -41,6 +41,9 @@ let board = boardMaker(5);
 
 
 let endGame = false;
+let gameWon = false;
+
+
 // To start the game
 function startGame () {
   // Don't remove this function call: it makes the game work!  
@@ -61,7 +64,7 @@ function startGame () {
     lib.initBoard()
 }
 
-let gameWon = false;
+
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
@@ -114,7 +117,7 @@ function countSurroundingMines (cell) {
 let startTime = null;
 let timeStopped = null;
 let timeElapsed;
-let fastest = [];
+let fastest = '0:00:000';
 
 function startTimer () {
     if (startTime === null) {
@@ -125,27 +128,28 @@ function startTimer () {
     let timeElapsed = new Date(currentTime - startTime)
     let min = timeElapsed.getUTCMinutes()
     let sec = timeElapsed.getUTCSeconds()
-    // let ms = timeElapsed.getUTCMilliseconds();
-    document.getElementById("timer").innerHTML = ` ${min}:${sec}`
+    let ms = timeElapsed.getUTCMilliseconds();
+    document.getElementById("timer").innerHTML = ` ${min}:${sec}:${ms}`
   
     if (endGame === true){
         clearInterval(timerStart);
     }
 
     if (!gameWon) {
-     //console.log('game not won yet')
       return
-    } else if (gameWon && timeElapsed > fastest) {                      // Trying to store fastest time even when
-      fastest.push(` ${min}:${sec}`)                                    // game reset. Try sotring numbers in the 
-     // document.getElementById("fastest").innerHTML = ` ${min}:${sec}` // array 'fastest' then only calling lowest number?
-      console.log('time elaspsed greater than fastest time so far...')
-      console.log(fastest)
-      document.getElementById("fastest").innerHTML = fastest.join('')
-      return
-    } 
+    } else if (gameWon) {
+      timeStopped = ` ${min}:${sec}:${ms}` 
+    }
 
-
-
+    if (fastest === '0:00:000') {
+        fastest = timeStopped
+        // console.log(fastest + ' new fastest added')
+        document.getElementById("fastest").innerHTML = fastest      
+    } else if (timeStopped < fastest) {
+        fastest = timeStopped
+        // console.log(fastest + ' has been changed to new timeStopped')
+        document.getElementById("fastest").innerHTML = fastest
+    }
   }, 10) 
 }
 
@@ -156,15 +160,6 @@ function resetTimer () {
 }
 
 
-// RECORDING FASTEST BOARD CLEARANCE
-
-
-function fastestBoardClear () {
-  if (gameWon && timeElapsed < timeElapsed) {
-    document.getElementById("fastest").innerHTML = ` ${timeElapsed}`;
-
-  }
-};
 
 
 
