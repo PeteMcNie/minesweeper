@@ -24,7 +24,7 @@ function boardMaker (num) {
   
         let mine = Math.floor(Math.random() * (max - min) + min); //To generate a radnum
         
-        if (mine > 4) { //if rannum is > 3, place mine
+        if (mine >= 5) { //if rannum is > 3, place mine
           cells.push(cellMaker(row, col, true, false, true)) //PLACES MINES
           mine--;
         } else { // otherwise no mine
@@ -47,21 +47,21 @@ function startGame () {
 
     let gameBoard = board.cells;
     document.getElementById("timer").innerHTML = ` 0:0`
-  
+
+
     for(let i = 0; i < gameBoard.length; i++) {
       gameBoard[i].surroundingMines = countSurroundingMines(gameBoard[i])
     }
     document.addEventListener("click", checkForWin)
     document.addEventListener("contextmenu", checkForWin)
-
     document.addEventListener("click", startTimer)
     document.addEventListener("contextmenu", startTimer)
 
     
     lib.initBoard()
-  
 }
 
+let gameWon = false;
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
@@ -77,9 +77,8 @@ function checkForWin () {
     } 
   }
   winTrack();
-  stopTimer();
-  // console.log('stop timer: win')
   endGame = true;
+  gameWon = true;
   return lib.displayMessage('YOU WIN!') 
 }
 
@@ -109,57 +108,67 @@ function countSurroundingMines (cell) {
   return count;
 }
 
-//Sound SECTION
-function winTrack() {
-  let win = document.getElementById("win");
-  win.play();
-}
-
-function lossTrack() {
-  let loss = document.getElementById("loss");
-  loss.play();
-}
-
-
-
-
-
 
 
  // TIMING SECTION
 let startTime = null;
 let timeStopped = null;
 let timeElapsed;
+let fastest = [];
 
 function startTimer () {
     if (startTime === null) {
       startTime = new Date()
     }
-      let timerStart = setInterval(function() {
-      let currentTime = new Date ()
-      let timeElapsed = new Date(currentTime - startTime)
-      let min = timeElapsed.getUTCMinutes()
-      let sec = timeElapsed.getUTCSeconds()
-      // let ms = timeElapsed.getUTCMilliseconds();
-      document.getElementById("timer").innerHTML = ` ${min}:${sec}`;
-      }, 10) 
-}
-
-function stopTimer () {
-    timeStopped = new Date();
-    if(timeStopped !== null) {
-      clearInterval(timerStart);
+    let timerStart = setInterval(function() {
+    let currentTime = new Date ()
+    let timeElapsed = new Date(currentTime - startTime)
+    let min = timeElapsed.getUTCMinutes()
+    let sec = timeElapsed.getUTCSeconds()
+    // let ms = timeElapsed.getUTCMilliseconds();
+    document.getElementById("timer").innerHTML = ` ${min}:${sec}`
+  
+    if (endGame === true){
+        clearInterval(timerStart);
     }
-    document.getElementById("timer").innerHTML = ` ${timeElapsed}`
-    
+
+    if (!gameWon) {
+     //console.log('game not won yet')
+      return
+    } else if (gameWon && timeElapsed > fastest) {                      // Trying to store fastest time even when
+      fastest.push(` ${min}:${sec}`)                                    // game reset. Try sotring numbers in the 
+     // document.getElementById("fastest").innerHTML = ` ${min}:${sec}` // array 'fastest' then only calling lowest number?
+      console.log('time elaspsed greater than fastest time so far...')
+      console.log(fastest)
+      document.getElementById("fastest").innerHTML = fastest.join('')
+      return
+    } 
+
+
+
+  }, 10) 
 }
 
 function resetTimer () {
-  console.log('resetTIMER')
   startTime = null;
   timerStopped = null;
   document.getElementById("timer").innerHTML = ` 00:00:00`
 }
+
+
+// RECORDING FASTEST BOARD CLEARANCE
+
+
+function fastestBoardClear () {
+  if (gameWon && timeElapsed < timeElapsed) {
+    document.getElementById("fastest").innerHTML = ` ${timeElapsed}`;
+
+  }
+};
+
+
+
+
 
 // RESET BUTTON HERE
 function resetGame () {
@@ -170,7 +179,21 @@ function resetGame () {
   resetGame.innerHTML = "";
   resetTimer();
   endGame = false;
+  gameWon = false;
   board = boardMaker(5)
   startGame();
 }
 
+
+
+
+//Sound SECTION
+function winTrack() {
+  let win = document.getElementById("win");
+  win.play();
+}
+
+function lossTrack() {
+  let loss = document.getElementById("loss");
+  loss.play();
+}
