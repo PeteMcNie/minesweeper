@@ -24,7 +24,7 @@ function boardMaker (num) {
   
         let mine = Math.floor(Math.random() * (max - min) + min); //To generate a radnum
         
-        if (mine > 3) { //if rannum is > 3, place mine
+        if (mine > 4) { //if rannum is > 3, place mine
           cells.push(cellMaker(row, col, true, false, true)) //PLACES MINES
           mine--;
         } else { // otherwise no mine
@@ -39,18 +39,25 @@ function boardMaker (num) {
 let board = boardMaker(5);
 
 
+
+let endGame = false;
 // To start the game
 function startGame () {
   // Don't remove this function call: it makes the game work!  
 
     let gameBoard = board.cells;
+    document.getElementById("timer").innerHTML = ` 0:0`
   
     for(let i = 0; i < gameBoard.length; i++) {
       gameBoard[i].surroundingMines = countSurroundingMines(gameBoard[i])
     }
     document.addEventListener("click", checkForWin)
     document.addEventListener("contextmenu", checkForWin)
-  
+
+    document.addEventListener("click", startTimer)
+    document.addEventListener("contextmenu", startTimer)
+
+    
     lib.initBoard()
   
 }
@@ -70,6 +77,9 @@ function checkForWin () {
     } 
   }
   winTrack();
+  stopTimer();
+  // console.log('stop timer: win')
+  endGame = true;
   return lib.displayMessage('YOU WIN!') 
 }
 
@@ -99,15 +109,6 @@ function countSurroundingMines (cell) {
   return count;
 }
 
-
-
-
-
-
-
-
-
-
 //Sound SECTION
 function winTrack() {
   let win = document.getElementById("win");
@@ -122,6 +123,44 @@ function lossTrack() {
 
 
 
+
+
+
+ // TIMING SECTION
+let startTime = null;
+let timeStopped = null;
+let timeElapsed;
+
+function startTimer () {
+    if (startTime === null) {
+      startTime = new Date()
+    }
+      let timerStart = setInterval(function() {
+      let currentTime = new Date ()
+      let timeElapsed = new Date(currentTime - startTime)
+      let min = timeElapsed.getUTCMinutes()
+      let sec = timeElapsed.getUTCSeconds()
+      // let ms = timeElapsed.getUTCMilliseconds();
+      document.getElementById("timer").innerHTML = ` ${min}:${sec}`;
+      }, 10) 
+}
+
+function stopTimer () {
+    timeStopped = new Date();
+    if(timeStopped !== null) {
+      clearInterval(timerStart);
+    }
+    document.getElementById("timer").innerHTML = ` ${timeElapsed}`
+    
+}
+
+function resetTimer () {
+  console.log('resetTIMER')
+  startTime = null;
+  timerStopped = null;
+  document.getElementById("timer").innerHTML = ` 00:00:00`
+}
+
 // RESET BUTTON HERE
 function resetGame () {
   win.pause();
@@ -129,6 +168,8 @@ function resetGame () {
   removeListeners();
   let resetGame = document.getElementById('board');
   resetGame.innerHTML = "";
+  resetTimer();
+  endGame = false;
   board = boardMaker(5)
   startGame();
 }
