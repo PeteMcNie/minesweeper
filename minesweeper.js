@@ -80,6 +80,7 @@ function checkForWin () {
     } 
   }
   winTrack();
+  
   endGame = true;
   gameWon = true;
   return lib.displayMessage('YOU WIN!') 
@@ -118,6 +119,8 @@ let startTime = null;
 let timeStopped = null;
 let timeElapsed;
 let fastest = '0:00:000';
+let second = '1:00:000'
+let third = '2:00:000'
 
 function startTimer () {
     if (startTime === null) {
@@ -144,12 +147,41 @@ function startTimer () {
     if (fastest === '0:00:000') {
         fastest = timeStopped
         // console.log(fastest + ' new fastest added')
-        document.getElementById("fastest").innerHTML = fastest      
+        document.getElementById("lasttime").innerHTML = fastest   
+        document.getElementById("first").innerHTML = fastest 
+        return  
+
     } else if (timeStopped < fastest) {
         fastest = timeStopped
         // console.log(fastest + ' has been changed to new timeStopped')
-        document.getElementById("fastest").innerHTML = fastest
+        document.getElementById("lasttime").innerHTML = fastest
+        document.getElementById("first").innerHTML = fastest
+        return
+
+    } else if (timeStopped > fastest && timeStopped < third) {
+        second = timeStopped
+        document.getElementById("second").innerHTML = second
+        console.log('second')
+        return
+
+    } else if (timeStopped > second && timeStopped < third) {
+        third = timeStopped
+        document.getElementById("third").innerHTML = third
+        console.log('third')
+        return
+
+    } else {
+      return
     }
+
+  
+
+
+
+
+
+
+
   }, 10) 
 }
 
@@ -158,11 +190,6 @@ function resetTimer () {
   timerStopped = null;
   document.getElementById("timer").innerHTML = ` 00:00:00`
 }
-
-
-
-
-
 
 
 // RESET BUTTON HERE
