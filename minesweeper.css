@@ -8,7 +8,11 @@ body {
   align-items: center;
   justify-content: flex-center;
   flex-direction: column;
-  background-color:  brown;
+  background-color: rgb(10, 15, 29);
+  background-image: url("./images/bgbw.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 800px;
 }
 
 #message, #notes {
@@ -31,6 +35,35 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
+
+.table {
+  position: fixed;
+  top: 250px;
+  left: 100px;
+  bottom: 250px;
+  right: 900px;
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(20, 20, 20, 0.63);
+  border-radius: 5%;
+  box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0px 6px 20px 0 rgba(0, 0, 0, 0.19);  
+}
+
+.header {
+  border: grey solid 1px;
+  font-size: 2rem;
+  text-align: center;
+  padding: 10px;
+  color: aliceblue;
+}
+
+.places {
+  border: hotpink solid 1px;
+  font-size: 1.7rem;
+  padding: 15px;
+  color: aliceblue
+}
+
 
 .board div {
   color: rgb(255, 255, 255);
