@@ -129,9 +129,14 @@ function startTimer () {
     }
 
     let timerStart = setInterval(function() {
+        let timer;
         let currentTime = new Date ()
         timeElapsed = currentTime - startTime;
-        document.getElementById("timer").innerHTML = timeElapsed / 1000;
+        timer = timeElapsed;
+
+        let min = Math.floor(timer / 60000)
+        let sec = ((timer % 60000) / 1000).toFixed(3)
+        document.getElementById("timer").innerHTML = (sec == 60 ? (min+1) + ":00" : min + ":" + (sec < 10 ? "0" : "") + sec)
 
         if (endGame === true){
             clearInterval(timerStart);
@@ -150,32 +155,34 @@ function resetTimer () {
 }
 
 
-// #####Updating leader board#######
+
 function gameWonFunc () {
   times.push(timeElapsed)
   times.sort((a, b) => {return a - b});
   console.log(times)
-
-  if (times.length === 1) {
-    document.getElementById("first").innerHTML = times[0] / 1000
-
-  } else if (times.length === 2){
-    document.getElementById("first").innerHTML = times[0] / 1000
-    document.getElementById("second").innerHTML = times[1] / 1000
-
-  } else {
-    document.getElementById("first").innerHTML = times[0] / 1000
-    document.getElementById("second").innerHTML = times[1] / 1000
-    document.getElementById("third").innerHTML = times[2] / 1000
-  }
-
+  scoreUpdate();
 }
 
 
+// UPDATE SCOREBOARD
+function scoreUpdate () {
+  console.log('scoreUpdate')
+  if (times.length === 1) {
+    document.getElementById("first").innerHTML = `1st: ${times[0] / 1000}`
+    // console.log('1st only')
 
+  } else if (times.length === 2){
+    document.getElementById("first").innerHTML = `1st: ${times[0] / 1000}`
+    document.getElementById("second").innerHTML = `2nd: ${times[1] / 1000}`
+    // console.log('two numbers only')
 
-
-
+  } else {
+    document.getElementById("first").innerHTML = `1st: ${times[0] / 1000}`
+    document.getElementById("second").innerHTML = `2nd: ${times[1] / 1000}`
+    document.getElementById("third").innerHTML = `3rd: ${times[2] / 1000}`
+    // console.log('more than two')
+  }
+}
 
 
 // RESET BUTTON HERE
