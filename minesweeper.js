@@ -82,8 +82,7 @@ function checkForWin () {
       return;
     } 
   }
-  // winTrack();
-  
+  winTrack();
   endGame = true;
   gameWon = true;
   return lib.displayMessage('YOU WIN!') 
@@ -185,19 +184,7 @@ function scoreUpdate () {
 }
 
 
-// RESET BUTTON HERE
-function resetGame () {
-  // win.pause();
-  loss.pause();
-  removeListeners();
-  let resetGame = document.getElementById('board');
-  resetGame.innerHTML = "";
-  resetTimer();
-  endGame = false;
-  gameWon = false;
-  board = boardMaker(5)
-  startGame();
-}
+
 
 
 
@@ -209,6 +196,23 @@ function winTrack() {
 }
 
 function lossTrack() {
-  let loss = document.getElementById("loss");
+  console.log('loss track')
+  let track = Math.floor(Math.random() * 4)
+  console.log(track)
+  let loss = document.getElementById("loss" + track);
   loss.play();
+}
+
+
+// RESET BUTTON HERE
+function resetGame () {
+  // win.pause();
+  removeListeners();
+  let resetGame = document.getElementById('board');
+  resetGame.innerHTML = "";
+  resetTimer();
+  endGame = false;
+  gameWon = false;
+  board = boardMaker(5)
+  startGame();
 }
