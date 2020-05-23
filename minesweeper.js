@@ -57,13 +57,16 @@ function startGame () {
     }
     document.addEventListener("click", checkForWin)
     document.addEventListener("contextmenu", checkForWin)
-    document.addEventListener("click", startTimer)
-    document.addEventListener("contextmenu", startTimer)
-
+    document.addEventListener("click", startTimer, {once: true})
     
     lib.initBoard()
 }
 
+
+// Array.filter(el => {return el > 4})
+// Array.filter(el => el > 4)
+// Array.filter(         (el,       idx,    arr) => { return idx > 5 && el > 4 && socks.length > 1 }), ...)
+//               callback(element[, index, [array]])                                                [, thisArg]
 
 // Define this function to look for a win condition:
 //
@@ -79,7 +82,7 @@ function checkForWin () {
       return;
     } 
   }
-  winTrack();
+  // winTrack();
   
   endGame = true;
   gameWon = true;
@@ -118,71 +121,26 @@ function countSurroundingMines (cell) {
 let startTime = null;
 let timeStopped = null;
 let timeElapsed;
-let fastest = '0:00:000';
-let second = '1:00:000'
-let third = '2:00:000'
+let times = [];
 
 function startTimer () {
     if (startTime === null) {
       startTime = new Date()
     }
+
     let timerStart = setInterval(function() {
-    let currentTime = new Date ()
-    let timeElapsed = new Date(currentTime - startTime)
-    let min = timeElapsed.getUTCMinutes()
-    let sec = timeElapsed.getUTCSeconds()
-    let ms = timeElapsed.getUTCMilliseconds();
-    document.getElementById("timer").innerHTML = ` ${min}:${sec}:${ms}`
-  
-    if (endGame === true){
-        clearInterval(timerStart);
-    }
+        let currentTime = new Date ()
+        timeElapsed = currentTime - startTime;
+        document.getElementById("timer").innerHTML = timeElapsed / 1000;
 
-    if (!gameWon) {
-      return
-    } else if (gameWon) {
-      timeStopped = ` ${min}:${sec}:${ms}` 
-    }
+        if (endGame === true){
+            clearInterval(timerStart);
+        }
 
-    if (fastest === '0:00:000') {
-        fastest = timeStopped
-        // console.log(fastest + ' new fastest added')
-        document.getElementById("lasttime").innerHTML = fastest   
-        document.getElementById("first").innerHTML = fastest 
-        return  
-
-    } else if (timeStopped < fastest) {
-        fastest = timeStopped
-        // console.log(fastest + ' has been changed to new timeStopped')
-        document.getElementById("lasttime").innerHTML = fastest
-        document.getElementById("first").innerHTML = fastest
-        return
-
-    } else if (timeStopped > fastest && timeStopped < third) {
-        second = timeStopped
-        document.getElementById("second").innerHTML = second
-        console.log('second')
-        return
-
-    } else if (timeStopped > second && timeStopped < third) {
-        third = timeStopped
-        document.getElementById("third").innerHTML = third
-        console.log('third')
-        return
-
-    } else {
-      return
-    }
-
-  
-
-
-
-
-
-
-
-  }, 10) 
+        if (gameWon) {
+          gameWonFunc()
+        }
+    }, 100) 
 }
 
 function resetTimer () {
@@ -192,9 +150,37 @@ function resetTimer () {
 }
 
 
+// #####Updating leader board#######
+function gameWonFunc () {
+  times.push(timeElapsed)
+  times.sort((a, b) => {return a - b});
+  console.log(times)
+
+  if (times.length === 1) {
+    document.getElementById("first").innerHTML = times[0] / 1000
+
+  } else if (times.length === 2){
+    document.getElementById("first").innerHTML = times[0] / 1000
+    document.getElementById("second").innerHTML = times[1] / 1000
+
+  } else {
+    document.getElementById("first").innerHTML = times[0] / 1000
+    document.getElementById("second").innerHTML = times[1] / 1000
+    document.getElementById("third").innerHTML = times[2] / 1000
+  }
+
+}
+
+
+
+
+
+
+
+
 // RESET BUTTON HERE
 function resetGame () {
-  win.pause();
+  // win.pause();
   loss.pause();
   removeListeners();
   let resetGame = document.getElementById('board');
